@@ -1,0 +1,26 @@
+.topNav{    
+    background-color:aqua;
+    padding: 30px;
+    text-align: center;           
+}
+
+.float{
+    float:left;
+}
+
+.clear{
+    clear: both;
+}
+
+.scheduleLineBox{
+    display:flex;
+    width:100%;
+    height:812px;
+}
+
+.dowBox{
+    display:flex;
+    width:100%;
+    height:100px;
+    background-color:black;
+}

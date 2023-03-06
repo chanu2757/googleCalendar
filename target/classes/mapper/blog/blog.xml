@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.java_blog.dao.DAO">
+	<select id="selectSysdate" parameterType="DTO" resultType="DTO">
+		SELECT TO_CHAR(sysdate, 'YYYYMMDD') AS CurrentTime
+		FROM DUAL
+	</select>
+
+	<select id="selectTitleList" parameterType="DTO" resultType="DTO">
+		SELECT SEQ_NO, TITLE, DDABONG, TO_CHAR(ADD_DATE,'YYYYMMDD') AS ADD_DATE
+		FROM TB_BLOG_MST
+	</select>
+</mapper>

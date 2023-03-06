@@ -1,0 +1,197 @@
+리액트 필기
+
+1.class, className
+태그에 클래스를 주고싶을 때
+js에선 class를 사용하면 class를 생성하는 것이기 때문에
+리액트에선 className을 사용해야함
+
+2.변수 넣을 땐 {중괄호}
+기본 js에선 document.querySelector('h4').innerHTML = post;로 사용해야함
+react에선 태그안에 { post }로 사용하면 된다.
+추가로 변수를 태그의 속성에도 사용 가능하다. ex) id={ post }
+
+3. 인라인 방식으로 css를 넣을 때
+style = { {color : 'red', fontSize : '16px'} }와 같은 방식으로 Object형식으로 해줘야 한다.
+
+4. return 안에 태그를 작성해야함
+그리고 return 소괄호안에는 한개의 태그만 존재해야함.
+    return {
+        <div></div>
+        <div></div>
+    } > 에러남
+
+5.state 문법
+useState 엔터 하면 import { useSatate } from 'react'가 추가됨
+useState('a','b'); // [a,b] 이런식
+
+(참고)Destructuring 문법
+let num = [1,2];
+
+//let a = num[0]; // a=1
+//let c = num[1]; // a=2
+let [a,c] = [1,2];
+
+변수와 state의 차이
+post변수가 변경되었을 때 html에 자동 반영 안됨.
+state는 변경되었을 때 html이 자동 재렌더링함.
+
+언제 쓸까? 
+DB에서 데이터를 받아올때 사용하면 좋을듯.
+자주 변경되는 데이터를 받아올 때 state로 선언
+
+state 변경
+let [변수, 변경함수] = useState(0,1);
+
+> state로 사용하는 변수가 배열일 경우
+let [a, b] = useState([1,2,3]);
+{ a[0] } 으로 변수를 부를 수 있지만
+
+변경함수 b는 b( a[0] = a[0]+1 )로 할 시 적용이 안된다. 
+그래서 b[0]( a[0] = a[0]+1 )으로 해도 안되고
+b( a[0] = a[0]+1 )[0]도 안되고
+그래서 해본게 b([a[0] = a[0]+1, a[1], a[2]])인데 이걸로 했을 때 적용이 되었다.
+b([a[0] = a[0]+1]) 이렇게만 할 경우엔 첫번째 것만 잘 적용되고 나머지는 적용이 되지않고 에러가 발생한다.
+
+a[0] = 2 b(a)가 안되는 이유.
+a[0] =2로 변경하면 기존 state의 a[0]이 2이되고 바뀌는 state의 a[0]도 2이기 때문에 변경되지않는다.
+[...a] ... = 괄호를 벗겨주세요 실행 후 새로운 괄호를 씌운다.즉 새로운 배열을 만든다.
+
+
+변경 원리
+바꾸기 전에 기존state와 신규 state를 비교한다. >> 그래서 똑같은 state와 같은 형식으로 넣어줘야하는구나
+
+
+6. onClick사용
+태그 안에 onClick = { 함수명 }으로 사용가능 또는
+{function() { }}도 가능 // () => 동일
+
+onclick에서 컴포넌트 함수를 호출하면 태그가 생길까?
+아쉽게도 태그는 생기지 않고 안에있는 console.log나 기능들만 실행되었다.
+근데 이게 태그를 방법이 있을 것만 같다.
+
+7. Component 만들기
+    1. function 만들고 ※ 함수명은 첫글자 대문자로(파스칼 케이스)
+    2. return()안에 html 담기
+    3. <함수명></함수명> 쓰기 
+
+언제 쓸까?
+    1. 반복적인 html축약 할때
+    2. 큰 페이지들 
+    3. 자주 변경되는 ui
+단점
+    1. state 사용시 문제가 발생함
+
+<참고> return() 안에서 html병렬해서 사용하기
+    1. 하나의 <div>로 감싼다.
+    <div>
+        <div></div>
+        <div></div>
+    <div>
+
+    2.의미 없느 <div>는 싫다.
+    <>
+        <div></div>
+        <div></div>
+    </>
+
+<참고2>컴포넌트 만드는 문법2
+const Modal = () => {
+
+}
+
+간단한 실험 
+컴포너트 태그 <Modal></Modal> 사이에 값을 넣으면 어떻게 받아올까?
+<Modal id="Test">테스트</Modal>
+const Modal = (data) => {
+    console.log(data);
+}
+그러면 console 창엔
+{children : 테스트}가 출력된다.
+
+그럼 속성을 추가해보자.
+{id :Test,
+children : 테스트} 가 출력된다.
+
+8. React에서 ajax사용하기
+1. Jquery를 설치해 $.ajax()를 사용한다.
+
+2.axios를 사용한다. >> 스프링과 연결할 때 설치했다.
+ 
+ 2-1. axios를 get형식으로 호출하기
+    axios.get(url);
+ 2-2. axios를 fetch형식으로 불러오기
+    axios.get('url')
+      .then((result)=>{ console.log(result) }) // 요청 성공시 실행코드
+      .catch(()=>{  }) // 요청 실패시 실행코드
+
+
+    바닐라 자바스크립트 문법인 fetch()문법도 비슷하게 사용.
+    fetch(요청url) : GET요청
+    fetch(요청url).then() 이렇게 쓰는것도 위와 똑같음.
+    하.지.만
+    가져온 자료가 JSON이라면 object로 자동변환이 안됨
+
+    JSON은 Object자료형처럼 .title, .price 이런식으로 정보를 뽑을수없어서 JSON자료는 Object는 변환을 해줘야함.
+    axios라이브러리를 쓰면 JSON자료를 가져와도 지가 알아서 따옴표를 제거한 Object로 자동으로 만들어주는 반면, fetch는 그런걸 안해줘서 코드가 약간 더 길어짐.
+    출처 : https://velog.io/@ksung1889/React-Project11.-%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90%EC%84%9C%EC%9D%98-Ajax-%EC%9A%94%EC%B2%AD%EB%B0%A9%EB%B2%95-Ajax%EB%8A%94-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80
+
+3.처음 페이지 실행시에만 호출하기
+    Ajax를 이용해서 페이지 내용을 받아오거나 그럴 때가 있습니다.
+
+    useEffect() 함수 안에 집어넣으면 끝.
+    useEffect()는 컴포넌트 등장시/업데이트시 실행되는 함수이므로.
+
+    useEffect(()=>{
+        axios.get().then().catch(); // get은 생략 가능하다. 디폴트다.
+    }, []);
+
+
+
+4. import와 export
+
+이제 프로젝트 화면설계도 대충했고 시작하기 위해서 
+index.js에서 App.js가 아니고 다른 파일을 호출하려고 하는데
+간단하게 위에 
+import 파일명 from './파일경로'
+이렇게 하면 될줄 알았다.
+근데 에러가 마구 발생한다.
+
+export 'default' (imported as 'LeftSideBar') was not found in './Components/Test' (module has no exports)
+읭? 못찾는다고? 그래서 나는 export는 모르고 못찾는다는 말만 보고 계속 경로를 
+수정해보고 했지만 소용없었다.
+그래서 구글링을 해서 찾아본 결과
+
+1. 코드 밑에 export 추가
+react에선 파일을 import하기 위해선 import할 파일에
+export { 네이밍 }; 이렇게 해줘서
+import { 네이밍 } from './파일경로' 이렇게 해야 import를 해서 외부 파일에서 컴포넌트를
+
+2. 함수 앞에 export추가
+export function Test = () => {};
+import {test} from '파일경로'
+
+3.as 키워드를 사용해 별칭을 붙여서 보내기
+export { Test as TesT }
+import {TesT} from '파일경로'
+
+4. default를 사용하는 방법
+4-1. 일반 함수로 작성할 경우 
+export default function Test() {}
+4-2.
+export default Test;
+import Test from '파일경로'
+
+한 파일에 여러 개의 변수, 함수, 클래스를 export하는 경우
+※ 주의사항export default 키워드가 있는 모듈은 중괄호를 사용하여 import할 경우 에러가 발생합니다.
+한 파일에서 export default 키워드는 오직 한 개만 존재해야합니다.
+
+
+대신 test1,test2,test3이라는 함수가 있을때
+export {Test1 as default, Test2, Test3}
+import Test1, {Test2, Test3 } from '파일경로' 
+
+default 키워드가 붙은 Test1은 중괄호 없이,
+default 키워드가 없는 Test2,Test3은 중괄호를 사용해 모듈을 가져온다.
+
+
+
