@@ -11,8 +11,8 @@ const LeftSideBar =()=> {
 
 const SideMenu =()=>{
     return(
-    <div className="calendarBox">
-        <div className="calendar">
+    <div className="miniCalendarBox">
+        <div className="miniCalendar">
             달력 3월
         </div>
     </div>

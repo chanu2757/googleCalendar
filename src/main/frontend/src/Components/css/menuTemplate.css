@@ -45,14 +45,14 @@
 
 
 /* sideBar miniCalendar CSS*/
-.calendarBox{
+.miniCalendarBox{
     width:100%;
     height:300px;
     background-color:yellow;
     padding : 5px;
 }
 
-.calendar{
+.miniCalendar{
     width:100%;
     height:100%;
     background-color:antiquewhite;
@@ -62,25 +62,85 @@
 
 .dateBox{
     display:flex;    
-    height:100%;    
+    height:1000px;    
     background-color:black;   
-    flex:10;
+    flex:1 1;
 }
 .date{
-    width:8%;
+    width:210px;
     height:100%;
     background-color: white;
-    border:1px solid #eee;
+    border-left:1px solid #eee;
     flex :none;
 }
 
 /* timeBox CSS*/
 .timeBox{
-    flex :1 1 60%;
+    flex :1 1;
     background-color:azure;
+    height:1000px;
+    width:120px;
+}
+/* .timeBlock{
+    background-color:bisque;
+    width:3px;
+    height:1000px;
+} */
+
+/* dowList CSS*/
+.dowBox{
+    display:flex;
+    width:100%;
+    height:100px;
+}
+.dowblock{    
+    width:138px;
+    height:100px;
+    background-color:white;
 }
 
-/* scheduleLineBox CSS */
-.scheduleLineBox{
-    flex:1 1 60px;
+.dow{
+    width:210px;
+    height:100px;
+    background-color:white;
+    position:relative;
+    border-bottom: #eee solid 1px;
+}
+
+.dowblockEnd{
+    width:17px;
+    background-color:white;
+    height:100px;
+}
+
+.dowName{    
+    padding:4px;
+    text-align:center;
+    font-weight: bold;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.dowLine{
+    bottom:0px;
+    height:20px;
+    border-right:1px solid #eee;
+    position:absolute;
+}
+
+.dateTitle{
+    font-size:30px;
+    width:50px;
+    height:50px;
+    border-radius: 100%;
+    background-color:#eee;
+    line-height:45px;
+    margin:auto;
+    text-align:center;
+}
+
+.dateTitle:hover{
+    background-color:cornflowerblue;
+    color:white;
+    cursor:pointer;
 }
