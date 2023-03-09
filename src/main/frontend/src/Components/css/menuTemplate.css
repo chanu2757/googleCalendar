@@ -80,12 +80,46 @@
     background-color:azure;
     height:1000px;
     width:120px;
+    display: flex;
+    flex-direction: column;
 }
+
 /* .timeBlock{
     background-color:bisque;
     width:3px;
     height:1000px;
 } */
+
+.timeHour{
+    width:100%;
+    flex:1 1;
+    background-color:#eee;    
+}
+
+.timeLineBox{
+    border-top: 1px solid #eee;
+}
+
+.timeLine{    
+    height:30px;
+}
+
+.timeLine::after{
+    content:"";
+    z-index:1000;
+    border-bottom: 1px solid #eee;
+    background-color:antiquewhite;
+    width:100%;
+    position:absolute;
+}
+
+span.timeDtl {
+    display: block;
+    font-size: 13px;
+    position: relative;
+    top: 25px;
+    text-align: right;
+}
 
 /* dowList CSS*/
 .dowBox{
@@ -104,7 +138,6 @@
     height:100px;
     background-color:white;
     position:relative;
-    border-bottom: #eee solid 1px;
 }
 
 .dowblockEnd{
