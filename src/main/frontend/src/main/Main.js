@@ -10,10 +10,12 @@ const BlogMain = ()=> {
             <div className="ContentsBox">
                 <LeftSideBar></LeftSideBar>
 
-                <div class="BigCalendarBox">
+                <div className="BigCalendarBox">
                     <div className="dowBox">
                         <div className="dowblock">
-                        <div className="timeFormat">GMT+09</div>
+                            <div className="timeFormat">
+                               <div className="timeFormatName">GMT+9</div>
+                            </div>
                         </div>
                         <div className="dow">
                             <div className="dowLine"></div>
@@ -129,7 +131,8 @@ const BlogMain = ()=> {
                             
                         </div>
                         <div className ="timeBlock"></div>
-                        <div className ="dateBox">
+                        <div id="dateBox" className ="dateBox">
+                            <div className="timeLineBlock"></div>
                             <div className="timeLineBox">
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
@@ -142,28 +145,27 @@ const BlogMain = ()=> {
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
+                                <div className="timeLine"></div>                              
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
+                                <div className="timeLine"></div>                 
+                                <div className="timeLine"></div>              
+                                <div className="timeLine"></div>             
+                                <div className="timeLine"></div>           
                                 <div className="timeLine"></div>
                                 <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>
-                                <div className="timeLine"></div>                                
+                                <div className="timeLine"></div>                                                   
+                                <div className="timeLine"></div>                                                  
                             </div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
-                            <div className = "date"></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
                         </div>                
                     </div>
                 </div>
@@ -171,5 +173,30 @@ const BlogMain = ()=> {
         </div>
     );
 };
+
+
+const fn_clickTimeLine=(e)=>{
+    //약 한칸에 58 28px씩
+    // 326 ~ 1039  707
+    //326 ~ 385 00:00 ~ 01:00  0
+    //255 ~ 284 00:30 ~ 01:30  1
+    //285 ~ 313 01:00 ~ 02:00  2
+    // Y - (클릭위치 - 225) / 29  >> 몫 : 시간 
+    // Y = 225 + 29 *몫 부터 시작        
+    console.log('Y :' + e.screenY);
+
+    let createTop = 225 + (30 * parseInt((e.screenY-225) / 29));    
+    let createStyle = {
+        top : createTop +'px'
+        };
+    // let createSchedule = React.createElement('div',null,'하이');
+    // //createSchedule.className = "scheduleRegiBox";
+
+
+    console.log(createTop);  
+    console.log("<div class='' style='top : "+ createTop + "px'></div>");
+    e.target.innerHTML = "<div class='scheduleRegiBox' style='top : "+ createTop + "px'></div>";
+    // console.log(createSchedule);    
+}
 
 export { BlogMain };
