@@ -1,4 +1,5 @@
 import {CategoryBar, LeftSideBar} from '../Components/menuTemplate'
+import ReactDOM from 'react-dom/client'
 import './css/main.css'
 
 const BlogMain = ()=> {
@@ -174,7 +175,6 @@ const BlogMain = ()=> {
     );
 };
 
-
 const fn_clickTimeLine=(e)=>{
     //약 한칸에 58 28px씩
     // 326 ~ 1039  707
@@ -183,20 +183,17 @@ const fn_clickTimeLine=(e)=>{
     //285 ~ 313 01:00 ~ 02:00  2
     // Y - (클릭위치 - 225) / 29  >> 몫 : 시간 
     // Y = 225 + 29 *몫 부터 시작        
-    console.log('Y :' + e.screenY);
+    console.log('Y :' + e.clientY);
 
-    let createTop = 225 + (30 * parseInt((e.screenY-225) / 29));    
+    let createTop = 0 + (30 * parseInt((e.clientY-225) / 29));    
     let createStyle = {
         top : createTop +'px'
         };
-    // let createSchedule = React.createElement('div',null,'하이');
-    // //createSchedule.className = "scheduleRegiBox";
-
-
-    console.log(createTop);  
-    console.log("<div class='' style='top : "+ createTop + "px'></div>");
-    e.target.innerHTML = "<div class='scheduleRegiBox' style='top : "+ createTop + "px'></div>";
-    // console.log(createSchedule);    
+    if(document.getElementsByClassName('scheduleRegiBox').length >0){
+        console.log(document.getElementById('scheduleRegiBox').remove());
+    }
+    
+    e.target.innerHTML = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ createTop + "px'></div>";
 }
 
 export { BlogMain };
