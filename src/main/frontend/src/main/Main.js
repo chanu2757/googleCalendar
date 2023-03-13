@@ -55,7 +55,7 @@ const BlogMain = ()=> {
                         </div>
                         <div className="dowblockEnd"></div>                  
                     </div>
-                    <div className="scheduleLineBox">                    
+                    <div id="scheduleLineBox" className="scheduleLineBox">                    
                         <div className ="timeBox">                           
                             <div className="timeHour">
                                 <span className="timeDtl">am 1</span>
@@ -178,19 +178,18 @@ const BlogMain = ()=> {
 const fn_clickTimeLine=(e)=>{
     //약 한칸에 58 28px씩
     // 326 ~ 1039  707
-    //326 ~ 385 00:00 ~ 01:00  0
+    //0 ~ 222 00:00 ~ 01:00  0
     //255 ~ 284 00:30 ~ 01:30  1
     //285 ~ 313 01:00 ~ 02:00  2
     // Y - (클릭위치 - 225) / 29  >> 몫 : 시간 
     // Y = 225 + 29 *몫 부터 시작        
-    console.log('Y :' + e.clientY);
-
-    let createTop = 0 + (30 * parseInt((e.clientY-225) / 29));    
-    let createStyle = {
-        top : createTop +'px'
-        };
+    console.log('Y :' + e.nativeEvent.offsetY);
+    let scrollTop = document.getElementById("scheduleLineBox").scrollTop;  
+    console.log(Math.ceil(e.nativeEvent.offsetY / 29));      
+    let createTop = Math.trunc(e.nativeEvent.offsetY / 29) * 29;          
+    console.log(createTop);
     if(document.getElementsByClassName('scheduleRegiBox').length >0){
-        console.log(document.getElementById('scheduleRegiBox').remove());
+        document.getElementById('scheduleRegiBox').remove();
     }
     
     e.target.innerHTML = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ createTop + "px'></div>";

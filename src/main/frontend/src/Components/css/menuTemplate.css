@@ -90,7 +90,7 @@
 }
 
 .timeLine{    
-    height:60px;
+    height:61px;
 }
 
 .timeLine::after{
@@ -184,7 +184,7 @@ span.timeDtl {
 
 .scheduleRegiBox{
     width:205px;
-    height:56px;
+    height:59px;
     position:relative;
     z-index:1000;    
     background-color:cornflowerblue;
