@@ -160,7 +160,12 @@ const BlogMain = ()=> {
                                 <div className="timeLine"></div>                                                   
                                 <div className="timeLine"></div>                                                  
                             </div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}>
+                                <div id='scheduleRegiBox' className='scheduleRegiBox' style={{top : '0px'}}>
+                                    <div class="scheduleName scheduleData">(No Title)</div>
+                                    <div class="scheduleTime scheduleData">00:00 ~ 01:00</div>
+                                </div>
+                            </div>
                             <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
                             <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
                             <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
@@ -175,24 +180,26 @@ const BlogMain = ()=> {
     );
 };
 
-const fn_clickTimeLine=(e)=>{
-    //약 한칸에 58 28px씩
-    // 326 ~ 1039  707
-    //0 ~ 222 00:00 ~ 01:00  0
-    //255 ~ 284 00:30 ~ 01:30  1
-    //285 ~ 313 01:00 ~ 02:00  2
-    // Y - (클릭위치 - 225) / 29  >> 몫 : 시간 
-    // Y = 225 + 29 *몫 부터 시작        
-    console.log('Y :' + e.nativeEvent.offsetY);
-    let scrollTop = document.getElementById("scheduleLineBox").scrollTop;  
-    console.log(Math.ceil(e.nativeEvent.offsetY / 29));      
-    let createTop = Math.trunc(e.nativeEvent.offsetY / 29) * 29;          
-    console.log(createTop);
+const fn_clickTimeLine=(e)=>{    
     if(document.getElementsByClassName('scheduleRegiBox').length >0){
         document.getElementById('scheduleRegiBox').remove();
     }
+    //약 한칸에 60 30px씩
+    // 326 ~ 1039  707
+    //0 ~ 222 00:00 ~ 01:00  0
+    //255 ~ 284 00:30 ~ 01:30  1
+    //285 ~ 313 01:00 ~ 02:00  2   
+    // hour : 몫, miniute : 나머지 >> 1일때 30분 0이면 정각 
+    let createTop = (Math.trunc(e.nativeEvent.offsetY/30)* 30) ;              
+    let createHour = Math.trunc((e.nativeEvent.offsetY/30)/2);
+    let createMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';
+    let createTime = createHour+ ":" + createMin + "~" + (createHour+1) + ":" + createMin;
     
-    e.target.innerHTML = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ createTop + "px'></div>";
+    let scheduleInfo = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ createTop + "px'>";
+        scheduleInfo += "<div class='scheduleName scheduleData'>(No Title)</div>";
+        scheduleInfo += "<div class='scheduleTime scheduleData'>"+ createTime +"</div>";
+        scheduleInfo += "</div>";
+    e.target.innerHTML = scheduleInfo;
 }
 
 export { BlogMain };
