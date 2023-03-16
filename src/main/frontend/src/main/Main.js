@@ -2,7 +2,13 @@ import {CategoryBar, LeftSideBar} from '../Components/menuTemplate'
 import ReactDOM from 'react-dom/client'
 import './css/main.css'
 
+let regiBoxTop = "222";
+let regiBxoHeight = "59";
+let startHour = "";
+let startMin = "";
+
 const BlogMain = ()=> {
+
     return (
         <div className="container">
             <div className="topNav">
@@ -160,18 +166,25 @@ const BlogMain = ()=> {
                                 <div className="timeLine"></div>                                                   
                                 <div className="timeLine"></div>                                                  
                             </div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}>
                                 <div id='scheduleRegiBox' className='scheduleRegiBox' style={{top : '0px'}}>
-                                    <div class="scheduleName scheduleData">(No Title)</div>
-                                    <div class="scheduleTime scheduleData">00:00 ~ 01:00</div>
+                                    <div className="scheduleName scheduleData">(No Title)</div>
+                                    <div className="scheduleTime scheduleData">00:00 ~ 01:00</div>
                                 </div>
                             </div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
-                            <div className = "date" onClick={ (event) => fn_clickTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
+                            <div className = "date" onMouseDown={ (event) => fn_clickTimeLine(event)}
+                                                    onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                         </div>                
                     </div>
                 </div>
@@ -180,7 +193,13 @@ const BlogMain = ()=> {
     );
 };
 
-const fn_clickTimeLine=(e)=>{    
+const fn_clickTimeLine=(e)=>{      
+    regiBoxTop = (Math.trunc(e.nativeEvent.offsetY/30)* 30) ;            
+    startHour = Math.trunc((e.nativeEvent.offsetY/30)/2);
+    startMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';    
+}
+
+const fn_mouseUpTimeLine =(e)=> {    
     if(document.getElementsByClassName('scheduleRegiBox').length >0){
         document.getElementById('scheduleRegiBox').remove();
     }
@@ -190,12 +209,20 @@ const fn_clickTimeLine=(e)=>{
     //255 ~ 284 00:30 ~ 01:30  1
     //285 ~ 313 01:00 ~ 02:00  2   
     // hour : 몫, miniute : 나머지 >> 1일때 30분 0이면 정각 
-    let createTop = (Math.trunc(e.nativeEvent.offsetY/30)* 30) ;              
-    let createHour = Math.trunc((e.nativeEvent.offsetY/30)/2);
-    let createMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';
-    let createTime = createHour+ ":" + createMin + "~" + (createHour+1) + ":" + createMin;
+    let regiBoxEnd = (Math.trunc(e.nativeEvent.offsetY/30)* 30);
+    regiBxoHeight= (regiBoxEnd-regiBoxTop)==0?59:(regiBoxEnd-regiBoxTop);
     
-    let scheduleInfo = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ createTop + "px'>";
+    let endHour = Math.trunc((e.nativeEvent.offsetY/30)/2);   
+    console.log(Math.trunc(e.nativeEvent.offsetY)); 
+    console.log((Math.trunc(e.nativeEvent.offsetY/15)%4));
+    let endMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';   
+    if(endHour == startHour){
+        endHour = parseInt(startHour) + 1;
+        endMin = startMin; 
+    }
+    let createTime = startHour+ ":" + startMin + "~" + (endHour) + ":" + endMin;
+    
+    let scheduleInfo = "<div id='scheduleRegiBox' class='scheduleRegiBox' style='top : "+ regiBoxTop + "px; height : " + regiBxoHeight + "px;'>";
         scheduleInfo += "<div class='scheduleName scheduleData'>(No Title)</div>";
         scheduleInfo += "<div class='scheduleTime scheduleData'>"+ createTime +"</div>";
         scheduleInfo += "</div>";
