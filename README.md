@@ -38,3 +38,9 @@ innerHTML말고 리액트에서 사용하는 방법으로 추가해주고 싶다
 그리고 mouseDown때 생성해서
 mouseMove로 height늘리고
 mouseUp으로 마무리 딱해야될듯.
+
+--2023/03/17
+드래그를 만들긴했는데
+이게 그냥 javascript dom처럼 쓰면
+안되는게 꽤 있어서 react방식으로 해야하는데 
+허허 깜깜하다 깜깜해
