@@ -167,24 +167,26 @@ const BlogMain = ()=> {
                                 <div className="timeLine"></div>                                                  
                             </div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}>
-                                {/* <div id='scheduleRegiBox' className='scheduleRegiBox' style={{top : '0px'}}>
-                                    <div className="scheduleName scheduleData">(No Title)</div>
-                                    <div className="scheduleTime scheduleData">00:00 ~ 01:00</div>
-                                </div> */}
                             </div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
                                                     onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                             <div className = "date" onMouseDown={ (event) => fn_mouseDownTimeLine(event)}
+                                                    onMouseMove={ (event) => fn_mouseMoveTimeLine(event)}
                                                     onMouseUp = { (event)=> fn_mouseUpTimeLine(event)}></div>
                         </div>                
                     </div>
@@ -215,17 +217,13 @@ const fn_mouseMoveTimeLine = (e) =>{
     if(mouseDown){        
         let regiBoxEnd = (Math.trunc(e.nativeEvent.offsetY/30)* 30);
         regiBxoHeight= (regiBoxEnd-regiBoxTop)==0?59:(regiBoxEnd-regiBoxTop);              
-            console.log(e.target.firstChild.style.height=regiBxoHeight+'px');        
-        //e.target.firstChild.style.height=regiBxoHeight+'px';       
+        document.getElementById("scheduleRegiBox").style.height=regiBxoHeight+'px';                
     }
 }
 
 const fn_mouseUpTimeLine = (e) => {    
     let endHour = Math.trunc((e.nativeEvent.offsetY/30)/2);   
-    // console.log(Math.trunc(e.nativeEvent.offsetY)); 
-    // console.log((Math.trunc(e.nativeEvent.offsetY/15)%4));
-    console.log(e.target.firstChild.style.height);
-    let endMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';   
+    let endMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';       
     if(endHour == startHour){
         endHour = parseInt(startHour) + 1;
         endMin = startMin; 
