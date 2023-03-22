@@ -213,25 +213,38 @@ const fn_mouseDownTimeLine = (e) =>{
     mouseDown = true;
 }
 
-const fn_mouseMoveTimeLine = (e) =>{    
-    if(mouseDown){        
-        let regiBoxEnd = (Math.trunc(e.nativeEvent.offsetY/30)* 30);
-        regiBxoHeight= (regiBoxEnd-regiBoxTop)==0?59:(regiBoxEnd-regiBoxTop);              
-        document.getElementById("scheduleRegiBox").style.height=regiBxoHeight+'px';                
+const fn_mouseMoveTimeLine = (e) =>{   
+    if(document.getElementById('scheduleRegiBox') != null){
+        if(mouseDown){        
+            let regiBoxEnd = (Math.trunc(e.nativeEvent.offsetY/30)* 30);
+            regiBxoHeight= (regiBoxEnd-regiBoxTop)==0?59:(regiBoxEnd-regiBoxTop);              
+            document.getElementById("scheduleRegiBox").style.height=regiBxoHeight+'px';                
+        }   
+    }
+     
+}
+
+const fn_mouseUpTimeLine = (e) => {   
+    if(document.getElementById('scheduleRegiBox') != null){
+        let endHour = Math.trunc((e.nativeEvent.offsetY/30)/2);   
+        let endMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';       
+        if(endHour == startHour){
+            endHour = parseInt(startHour) + 1;
+            endMin = startMin; 
+        }
+        
+        let createEndTime = endHour + ":" + endMin;;
+        document.getElementById("scheduleEndTime").innerText = createEndTime;
+        mouseDown = false;
+        fn_scheduleDetailBox(e);
     }
 }
 
-const fn_mouseUpTimeLine = (e) => {    
-    let endHour = Math.trunc((e.nativeEvent.offsetY/30)/2);   
-    let endMin = (Math.trunc(e.nativeEvent.offsetY/30)%2)==1?'30':'00';       
-    if(endHour == startHour){
-        endHour = parseInt(startHour) + 1;
-        endMin = startMin; 
-    }
-    
-    let createEndTime = endHour + ":" + endMin;;
-    document.getElementById("scheduleEndTime").innerText = createEndTime;
-    mouseDown = false;
+const fn_scheduleDetailBox = (e) => {    
+    console.log(e);
+    //클릭 한 위치를 기준으로 3분할 정도해서 top,mid,bottom 나눠서 위치 주면 되고
+    //x축은 박스 크기에 따라 클릭한곳에서 한 10px 왼쪽 오른쪽인데 테두리 벗어날 경우 반대
+    //충분할경우 왼쪽이 default
 }
 
 export { BlogMain };
